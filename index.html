@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>¡Feliz Cumpleaños!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --rosa: #ff5c8a;
+            --rosa-claro: #ffd1df;
+            --morado: #7b4bff;
+            --amarillo: #ffd94d;
+            --turquesa: #3fd6c6;
+            --crema: #fff8ef;
+            --texto: #4a2c5a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            font-family: 'Quicksand', sans-serif;
+            color: var(--texto);
+            background:
+                radial-gradient(circle at 20% 20%, #ffb3d1 0, transparent 40%),
+                radial-gradient(circle at 80% 30%, #b9a2ff 0, transparent 45%),
+                radial-gradient(circle at 50% 90%, #8ff0e2 0, transparent 45%),
+                linear-gradient(160deg, #ff8fb8, #8a6bff);
+            background-attachment: fixed;
+        }
+
+        /* ---------- Globos ---------- */
+        .globos {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .globo {
+            position: absolute;
+            bottom: -140px;
+            width: 60px;
+            height: 76px;
+            border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+            animation: subir linear infinite;
+            opacity: .9;
+        }
+
+        .globo::before {
+            /* brillo */
+            content: '';
+            position: absolute;
+            top: 14%;
+            left: 20%;
+            width: 14px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .55);
+            transform: rotate(25deg);
+        }
+
+        .globo::after {
+            /* hilo */
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            width: 2px;
+            height: 70px;
+            background: rgba(255, 255, 255, .7);
+        }
+
+        .globo:nth-child(1) {
+            left: 6%;
+            background: var(--amarillo);
+            animation-duration: 14s;
+            animation-delay: 0s;
+        }
+
+        .globo:nth-child(2) {
+            left: 18%;
+            background: var(--turquesa);
+            animation-duration: 18s;
+            animation-delay: 3s;
+            width: 50px;
+            height: 64px;
+        }
+
+        .globo:nth-child(3) {
+            left: 32%;
+            background: #ff7a7a;
+            animation-duration: 16s;
+            animation-delay: 6s;
+        }
+
+        .globo:nth-child(4) {
+            left: 68%;
+            background: #ffffff;
+            animation-duration: 20s;
+            animation-delay: 1s;
+            width: 54px;
+            height: 68px;
+        }
+
+        .globo:nth-child(5) {
+            left: 82%;
+            background: var(--amarillo);
+            animation-duration: 15s;
+            animation-delay: 4s;
+        }
+
+        .globo:nth-child(6) {
+            left: 93%;
+            background: var(--rosa);
+            animation-duration: 19s;
+            animation-delay: 8s;
+            width: 48px;
+            height: 62px;
+        }
+
+        @keyframes subir {
+            0% {
+                transform: translateY(0) translateX(0) rotate(-4deg);
+            }
+
+            50% {
+                transform: translateY(-60vh) translateX(24px) rotate(4deg);
+            }
+
+            100% {
+                transform: translateY(-130vh) translateX(-10px) rotate(-4deg);
+            }
+        }
+
+        /* ---------- Escena y tarjeta ---------- */
+        .escena {
+            position: relative;
+            z-index: 1;
+            width: 360px;
+            height: 480px;
+            perspective: 1800px;
+            animation: entrada 1s ease-out both;
+        }
+
+        @keyframes entrada {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        #abrir {
+            display: none;
+        }
+
+        .tarjeta {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 1s cubic-bezier(.6, .05, .25, 1);
+        }
+
+        #abrir:checked~.tarjeta {
+            transform: translateX(180px);
+        }
+
+        /* Hoja derecha (mensaje) */
+        .hoja-derecha {
+            position: absolute;
+            inset: 0;
+            border-radius: 6px 18px 18px 6px;
+            background:
+                radial-gradient(circle at 90% 8%, var(--rosa-claro) 0, transparent 30%),
+                var(--crema);
+            box-shadow: 0 25px 50px rgba(60, 20, 90, .35);
+            padding: 34px 30px 28px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            border: 3px solid #fff;
+            outline: 2px dashed var(--rosa-claro);
+            outline-offset: -14px;
+        }
+
+        .hoja-derecha h2 {
+            font-family: 'Pacifico', cursive;
+            font-weight: 400;
+            font-size: 2rem;
+            line-height: 1.2;
+            background: linear-gradient(90deg, var(--rosa), var(--morado));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hoja-derecha .nombre {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.5rem;
+            color: var(--rosa);
+        }
+
+        .hoja-derecha p {
+            font-size: .98rem;
+            line-height: 1.55;
+            font-weight: 600;
+        }
+
+        .hoja-derecha .firma {
+            font-family: 'Pacifico', cursive;
+            font-weight: 400;
+            color: var(--morado);
+            font-size: 1.15rem;
+            margin-top: 4px;
+        }
+
+        .corazones {
+            font-size: 1.4rem;
+            letter-spacing: 6px;
+            animation: latido 1.4s ease-in-out infinite;
+        }
+
+        @keyframes latido {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.18);
+            }
+        }
+
+        /* ---------- Portada (gira) ---------- */
+        .portada {
+            position: absolute;
+            inset: 0;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            transition: transform 1s cubic-bezier(.6, .05, .25, 1);
+            cursor: pointer;
+            z-index: 5;
+        }
+
+        #abrir:checked~.tarjeta .portada {
+            transform: rotateY(-180deg);
+        }
+
+        .cara {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 6px 18px 18px 6px;
+            overflow: hidden;
+        }
+
+        /* Frente */
+        .frente {
+            background:
+                radial-gradient(circle at 15% 15%, rgba(255, 255, 255, .35) 0, transparent 35%),
+                repeating-linear-gradient(45deg, rgba(255, 255, 255, .08) 0 14px, transparent 14px 28px),
+                linear-gradient(160deg, var(--rosa), var(--morado));
+            box-shadow: 0 25px 50px rgba(60, 20, 90, .4);
+            border: 3px solid #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .frente .marco {
+            position: absolute;
+            inset: 14px;
+            border: 2px dashed rgba(255, 255, 255, .7);
+            border-radius: 12px;
+            pointer-events: none;
+        }
+
+        .frente .regalo {
+            font-size: 5.2rem;
+            filter: drop-shadow(0 8px 10px rgba(0, 0, 0, .25));
+            animation: brinco 2s ease-in-out infinite;
+        }
+
+        @keyframes brinco {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(-4deg);
+            }
+
+            50% {
+                transform: translateY(-14px) rotate(4deg);
+            }
+        }
+
+        .frente h1 {
+            font-family: 'Pacifico', cursive;
+            font-weight: 400;
+            font-size: 2.5rem;
+            line-height: 1.15;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, .25);
+        }
+
+        .frente .toca {
+            margin-top: 12px;
+            font-size: .85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, .22);
+            padding: 8px 16px;
+            border-radius: 30px;
+            animation: pulso 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulso {
+
+            0%,
+            100% {
+                opacity: .7;
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.06);
+            }
+        }
+
+        .estrella {
+            position: absolute;
+            color: var(--amarillo);
+            animation: titilar 2s ease-in-out infinite;
+        }
+
+        .estrella:nth-of-type(1) {
+            top: 9%;
+            left: 12%;
+            font-size: 1.4rem;
+        }
+
+        .estrella:nth-of-type(2) {
+            top: 14%;
+            right: 14%;
+            font-size: 1rem;
+            animation-delay: .5s;
+        }
+
+        .estrella:nth-of-type(3) {
+            bottom: 12%;
+            left: 16%;
+            font-size: 1.1rem;
+            animation-delay: 1s;
+        }
+
+        .estrella:nth-of-type(4) {
+            bottom: 16%;
+            right: 12%;
+            font-size: 1.5rem;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes titilar {
+
+            0%,
+            100% {
+                opacity: .3;
+                transform: scale(.8) rotate(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2) rotate(20deg);
+            }
+        }
+
+        /* Reverso (hoja izquierda con pastel) */
+        .reverso {
+            transform: rotateY(180deg);
+            background:
+                radial-gradient(circle at 20% 90%, #c9f7f0 0, transparent 35%),
+                var(--crema);
+            border-radius: 18px 6px 6px 18px;
+            box-shadow: inset -12px 0 18px rgba(0, 0, 0, .07);
+            border: 3px solid #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 60px;
+            outline: 2px dashed #b8efe7;
+            outline-offset: -14px;
+        }
+
+        .reverso .frase {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            font-family: 'Pacifico', cursive;
+            font-size: 1.6rem;
+            text-align: center;
+            color: var(--morado);
+            padding: 0 24px;
+            line-height: 1.3;
+        }
+
+        /* ---------- Pastel ---------- */
+        .pastel {
+            position: relative;
+            width: 210px;
+            height: 190px;
+        }
+
+        .plato {
+            position: absolute;
+            bottom: -14px;
+            left: -15px;
+            right: -15px;
+            height: 20px;
+            background: linear-gradient(#fff, #d9d0e6);
+            border-radius: 50%;
+            box-shadow: 0 8px 14px rgba(60, 20, 90, .25);
+        }
+
+        .piso {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 12px;
+        }
+
+        .piso.p1 {
+            bottom: 0;
+            width: 210px;
+            height: 70px;
+            background: linear-gradient(#ff8fb8, #ff5c8a);
+        }
+
+        .piso.p2 {
+            bottom: 70px;
+            width: 160px;
+            height: 60px;
+            background: linear-gradient(#b9a2ff, #7b4bff);
+        }
+
+        .crema {
+            /* escurrido de betún */
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            border-radius: 12px 12px 0 0;
+            height: 16px;
+        }
+
+        .crema::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            height: 14px;
+            background:
+                radial-gradient(circle at 12px 0, #fff 11px, transparent 12px) 0 0 / 28px 14px repeat-x;
+        }
+
+        .crema.c1 {
+            bottom: 54px;
+            width: 210px;
+        }
+
+        .crema.c2 {
+            bottom: 114px;
+            width: 160px;
+        }
+
+        .grajea {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .velas {
+            position: absolute;
+            bottom: 130px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 22px;
+        }
+
+        .vela {
+            position: relative;
+            width: 10px;
+            height: 38px;
+            border-radius: 3px;
+            background: repeating-linear-gradient(-45deg, #fff 0 5px, var(--turquesa) 5px 10px);
+        }
+
+        .llama {
+            position: absolute;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 20px;
+            background: radial-gradient(ellipse at 50% 75%, #fff6a8 0, var(--amarillo) 45%, #ff9d2e 100%);
+            border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+            box-shadow: 0 0 14px 4px rgba(255, 200, 60, .65);
+            animation: parpadeo .35s ease-in-out infinite alternate;
+            transform-origin: 50% 100%;
+        }
+
+        .vela:nth-child(2) .llama {
+            animation-delay: .12s;
+        }
+
+        .vela:nth-child(3) .llama {
+            animation-delay: .22s;
+        }
+
+        @keyframes parpadeo {
+            from {
+                transform: translateX(-50%) scale(1, 1) rotate(-3deg);
+            }
+
+            to {
+                transform: translateX(-50%) scale(.9, 1.12) rotate(3deg);
+            }
+        }
+
+        /* ---------- Confeti ---------- */
+        #confeti {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* ---------- Pantallas chicas ---------- */
+        @media (max-width: 800px) {
+            .escena {
+                zoom: .62;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .escena {
+                zoom: .46;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition-duration: .01s !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="globos" aria-hidden="true">
+        <div class="globo"></div>
+        <div class="globo"></div>
+        <div class="globo"></div>
+        <div class="globo"></div>
+        <div class="globo"></div>
+        <div class="globo"></div>
+    </div>
+
+    <main class="escena">
+        <input type="checkbox" id="abrir" aria-label="Abrir tarjeta">
+
+        <div class="tarjeta">
+
+            <!-- Hoja derecha: el mensaje -->
+            <section class="hoja-derecha">
+                <div class="corazones">💖 💜 💖</div>
+                <h2>¡Feliz Cumpleaños!</h2>
+                <!-- 👇 Cambia el nombre aquí -->
+                <div class="nombre">Hermanita</div>
+                <p>
+                    Hoy es tu día y quiero que lo disfrutes al máximo.
+                    Gracias por ser mi hermana, mi cómplice y mi apoyo en las
+                    buenas y en las malas.
+                </p>
+                <p>
+                    Que este nuevo año te traiga salud, amor, risas y todo lo bonito
+                    que mereces. ¡Eres increíble y te quiero un chingo! ✨
+                </p>
+                <div class="firma">Con cariño, tu hermano favorito y el que mas quiere y mas guapo que tu enano JAJAJA🎂
+                </div>
+            </section>
+
+            <!-- Portada que gira -->
+            <label class="portada" for="abrir">
+                <div class="cara frente">
+                    <div class="marco"></div>
+                    <span class="estrella">★</span><span class="estrella">★</span>
+                    <span class="estrella">★</span><span class="estrella">★</span>
+                    <div class="regalo">🎁</div>
+                    <h1>Feliz<br>Cumpleaños</h1>
+                    <div class="toca">Toca para abrir</div>
+                </div>
+
+                <div class="cara reverso">
+                    <div class="frase">Pide un deseo y sopla las velitas 🌟</div>
+                    <div class="pastel">
+                        <div class="velas">
+                            <div class="vela">
+                                <div class="llama"></div>
+                            </div>
+                            <div class="vela">
+                                <div class="llama"></div>
+                            </div>
+                            <div class="vela">
+                                <div class="llama"></div>
+                            </div>
+                        </div>
+                        <div class="crema c2"></div>
+                        <div class="piso p2"></div>
+                        <div class="crema c1"></div>
+                        <div class="piso p1"></div>
+                        <span class="grajea" style="bottom:24px;left:30px;background:#ffd94d"></span>
+                        <span class="grajea" style="bottom:36px;left:62px;background:#3fd6c6"></span>
+                        <span class="grajea" style="bottom:20px;left:96px;background:#fff"></span>
+                        <span class="grajea" style="bottom:34px;left:130px;background:#ffd94d"></span>
+                        <span class="grajea" style="bottom:22px;left:168px;background:#3fd6c6"></span>
+                        <span class="grajea" style="bottom:88px;left:56px;background:#ffd94d"></span>
+                        <span class="grajea" style="bottom:96px;left:100px;background:#fff"></span>
+                        <span class="grajea" style="bottom:86px;left:142px;background:#ff8fb8"></span>
+                        <div class="plato"></div>
+                    </div>
+                </div>
+            </label>
+
+        </div>
+    </main>
+
+    <canvas id="confeti"></canvas>
+
+    <script>
+        // Confeti al abrir la tarjeta
+        const check = document.getElementById('abrir');
+        const canvas = document.getElementById('confeti');
+        const ctx = canvas.getContext('2d');
+        const colores = ['#ff5c8a', '#7b4bff', '#ffd94d', '#3fd6c6', '#ffffff', '#ff8fb8'];
+        let piezas = [], corriendo = false;
+
+        function ajustar() { canvas.width = innerWidth; canvas.height = innerHeight; }
+        addEventListener('resize', ajustar); ajustar();
+
+        function lanzar() {
+            for (let i = 0; i < 160; i++) {
+                piezas.push({
+                    x: innerWidth / 2 + (Math.random() - .5) * 200,
+                    y: innerHeight * .55,
+                    vx: (Math.random() - .5) * 16,
+                    vy: -Math.random() * 18 - 6,
+                    w: Math.random() * 8 + 5,
+                    h: Math.random() * 5 + 3,
+                    r: Math.random() * Math.PI * 2,
+                    vr: (Math.random() - .5) * .4,
+                    c: colores[(Math.random() * colores.length) | 0]
+                });
+            }
+            if (!corriendo) { corriendo = true; requestAnimationFrame(animar); }
+        }
+
+        function animar() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            piezas.forEach(p => {
+                p.vy += .45; p.vx *= .99;
+                p.x += p.vx; p.y += p.vy; p.r += p.vr;
+                ctx.save();
+                ctx.translate(p.x, p.y); ctx.rotate(p.r);
+                ctx.fillStyle = p.c;
+                ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                ctx.restore();
+            });
+            piezas = piezas.filter(p => p.y < canvas.height + 30);
+            if (piezas.length) requestAnimationFrame(animar);
+            else { corriendo = false; ctx.clearRect(0, 0, canvas.width, canvas.height); }
+        }
+
+        check.addEventListener('change', () => {
+            if (check.checked) setTimeout(lanzar, 450);
+        });
+    </script>
+</body>
+
+</html>
